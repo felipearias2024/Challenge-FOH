@@ -4,6 +4,7 @@ import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
 import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
+import com.foh.ChallengeFoh.util.exception.CustomerNotFoundException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface CustomerService {
      * @param customerId id of the customer to be found
      * @return Customer found
      */
-    CustomerResponse getCustomer(String customerId);
+    CustomerResponse getCustomer(String customerId) throws CustomerNotFoundException;
 
     /**
      *
@@ -34,13 +35,13 @@ public interface CustomerService {
      * @param request customer data to be updated
      * @return the newly updated customer
      */
-    CustomerResponse updateCustomer(CustomerUpdateRequest request);
+    CustomerResponse updateCustomer(CustomerUpdateRequest request) throws CustomerNotFoundException;
 
     /**
      *
      * @param customerId id of the customer to be deleted
      */
-    void deleteCustomer(String customerId);
+    void deleteCustomer(String customerId) throws CustomerNotFoundException;
 
     /**
      *

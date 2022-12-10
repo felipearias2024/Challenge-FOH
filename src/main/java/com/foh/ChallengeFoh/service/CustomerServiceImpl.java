@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse getCustomer(String customerId) {
+    public CustomerResponse getCustomer(String customerId) throws CustomerNotFoundException{
         try{
             log.info("Searching for customer with customer id {}", customerId);
             Customer customer = customerRepository.findCustomerByCustomerId(customerId);
@@ -49,24 +49,24 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponse createCustomer(CustomerCreateRequest request) {
         log.info("Creating new customer");
-        Customer customer = customerResponseParser.convertRequestToEntity(request);
+        Customer customer = customerResponseParser.convertCreateRequestToEntity(request);
         CustomerResponse response = customerResponseParser.convertEntityToResponse(customerRepository.save(customer));
         log.info("Customer created");
         return response;
     }
 
     @Override
-    public CustomerResponse updateCustomer(CustomerUpdateRequest request) {
+    public CustomerResponse updateCustomer(CustomerUpdateRequest request) throws CustomerNotFoundException{
         log.info("Updating customer");
         getCustomer(request.getCustomerId());
-        Customer customer = customerResponseParser.convertRequestToEntity(request);
+        Customer customer = customerResponseParser.convertUpdateRequestToEntity(request);
         CustomerResponse response = customerResponseParser.convertEntityToResponse(customerRepository.save(customer));
         log.info("Customer updated");
         return response;
     }
 
     @Override
-    public void deleteCustomer(String customerId) {
+    public void deleteCustomer(String customerId) throws CustomerNotFoundException{
         log.info("Deleting customer with id {}", customerId);
         getCustomer(customerId);
         customerRepository.deleteById(customerId);

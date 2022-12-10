@@ -22,7 +22,7 @@ public class CustomerResponseParser {
                 .build();
     }
 
-    public Customer convertRequestToEntity(CustomerUpdateRequest request) {
+    public Customer convertUpdateRequestToEntity(CustomerUpdateRequest request) {
         return Customer.builder()
                 .customerId(request.getCustomerId())
                 .name(request.getName())
@@ -33,7 +33,7 @@ public class CustomerResponseParser {
                 .build();
     }
 
-    public Customer convertRequestToEntity(CustomerCreateRequest request) {
+    public Customer convertCreateRequestToEntity(CustomerCreateRequest request) {
         return Customer.builder()
                 .name(request.getName())
                 .lastName(request.getLastName())
