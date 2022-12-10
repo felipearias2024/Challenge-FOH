@@ -9,5 +9,5 @@ import java.util.List;
 @Builder
 public class PrimeNamesResponse {
     private Integer primeNamesAmount;
-    private List<CustomerResponse> primeNames;
+    private List<String> primeNames;
 }

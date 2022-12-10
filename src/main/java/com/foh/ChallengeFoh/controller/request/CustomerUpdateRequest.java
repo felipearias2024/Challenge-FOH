@@ -3,7 +3,7 @@ package com.foh.ChallengeFoh.controller.request;
 import lombok.Data;
 
 @Data
-public class CustomerRequest {
+public class CustomerUpdateRequest {
     private String customerId;
     private String name;
     private String lastName;

@@ -1,7 +1,9 @@
 package com.foh.ChallengeFoh.controller;
 
-import com.foh.ChallengeFoh.controller.request.CustomerRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
+import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
 import com.foh.ChallengeFoh.service.CustomerService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -10,37 +12,46 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/customer")
+@Validated
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/{customerId}")
     public CustomerResponse getCustomer(
             @PathVariable("customerId") String customerId){
-        return null;
+        return customerService.getCustomer(customerId);
     }
 
     @GetMapping()
-    //TODO usar estructura paginada en vez de lista
     public List<CustomerResponse> getAllCustomers(){
-        return null;
+        return customerService.getAllCustomers();
     }
 
     @PostMapping()
     public CustomerResponse createCustomer(
-            @Validated @RequestBody CustomerRequest request){
-        return null;
+            @Validated @RequestBody CustomerCreateRequest request){
+        return customerService.createCustomer(request);
     }
 
     @PutMapping()
     public CustomerResponse updateCustomer(
-            @Validated @RequestBody CustomerRequest request){
-        return null;
+            @Validated @RequestBody CustomerUpdateRequest request){
+        return customerService.updateCustomer(request);
     }
 
     @DeleteMapping("/{customerId}")
-    public CustomerRequest deleteCustomer(
+    public void deleteCustomer(
             @PathVariable("customerId") String customerId){
-        return null;
+        customerService.deleteCustomer(customerId);
+    }
+
+    @GetMapping("/primes")
+    public PrimeNamesResponse getPrimeNames(){
+        return customerService.getPrimeNames();
     }
 }
