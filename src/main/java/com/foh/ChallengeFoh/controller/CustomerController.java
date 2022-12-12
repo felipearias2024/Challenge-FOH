@@ -1,12 +1,10 @@
 package com.foh.ChallengeFoh.controller;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
 import com.foh.ChallengeFoh.service.CustomerService;
 import com.foh.ChallengeFoh.util.exception.CustomerNotFoundException;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +32,15 @@ public class CustomerController {
 
     @PostMapping()
     public CustomerResponse createCustomer(
-            @RequestBody CustomerCreateRequest request){
+            @RequestBody CustomerRequest request){
         return customerService.createCustomer(request);
     }
 
-    @PutMapping()
+    @PutMapping("/{customerId}")
     public CustomerResponse updateCustomer(
-            @RequestBody CustomerUpdateRequest request) throws CustomerNotFoundException{
-        return customerService.updateCustomer(request);
+            @RequestBody CustomerRequest request,
+            @PathVariable("customerId") String customerId) throws CustomerNotFoundException{
+        return customerService.updateCustomer(request, customerId);
     }
 
     @DeleteMapping("/{customerId}")

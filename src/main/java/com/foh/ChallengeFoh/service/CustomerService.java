@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.service;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
 import com.foh.ChallengeFoh.util.exception.CustomerNotFoundException;
@@ -14,6 +13,7 @@ public interface CustomerService {
      *
      * @param customerId id of the customer to be found
      * @return Customer found
+     * @throws CustomerNotFoundException
      */
     CustomerResponse getCustomer(String customerId) throws CustomerNotFoundException;
 
@@ -28,18 +28,21 @@ public interface CustomerService {
      * @param request customer data to be created
      * @return the newly created customer
      */
-    CustomerResponse createCustomer(CustomerCreateRequest request);
+    CustomerResponse createCustomer(CustomerRequest request);
 
     /**
      *
      * @param request customer data to be updated
+     * @param customerId id of the customer to be updated
      * @return the newly updated customer
+     * @throws CustomerNotFoundException
      */
-    CustomerResponse updateCustomer(CustomerUpdateRequest request) throws CustomerNotFoundException;
+    CustomerResponse updateCustomer(CustomerRequest request, String customerId) throws CustomerNotFoundException;
 
     /**
      *
      * @param customerId id of the customer to be deleted
+     * @throws CustomerNotFoundException
      */
     void deleteCustomer(String customerId) throws CustomerNotFoundException;
 

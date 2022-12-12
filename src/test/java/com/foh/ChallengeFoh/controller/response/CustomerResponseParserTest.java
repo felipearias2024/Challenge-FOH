@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.controller.response;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.repository.entity.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +44,8 @@ public class CustomerResponseParserTest {
 
     @Test
     public void testConvertUpdateRequestToEntity_ShouldSucceed_WhenValidData() {
-        CustomerUpdateRequest request = CustomerUpdateRequest.builder()
+        String customerId = "customerId";
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")
@@ -60,7 +60,7 @@ public class CustomerResponseParserTest {
                 .phoneNumber("phoneNumber")
                 .build();
 
-        Customer result = customerResponseParser.convertUpdateRequestToEntity(request);
+        Customer result = customerResponseParser.convertUpdateRequestToEntity(request, customerId);
 
         assertEquals(result, customer);
 
@@ -68,7 +68,7 @@ public class CustomerResponseParserTest {
 
     @Test
     public void testConvertCreateRequestToEntity_ShouldSucceed_WhenValidData() {
-        CustomerCreateRequest request = CustomerCreateRequest.builder()
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")

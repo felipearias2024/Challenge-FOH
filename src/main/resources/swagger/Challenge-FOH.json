@@ -1,0 +1,313 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger Challenge de foh",
+    "version": "1.0.1",
+    "title": "Challenge foh"
+  },
+  "tags": [
+    {
+      "name": "Customer Services",
+      "description": "Servicio para administrar clientes"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/customer/{customerId}": {
+      "get": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Obtiene un cliente por su customerId",
+        "operationId": "getCustomer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "Id del cliente a buscar",
+            "required": true,
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error / Customer not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Elimina un cliente por su customerId",
+        "operationId": "deleteCustomer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "Id del cliente a eliminar",
+            "required": true,
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error / Customer not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Modifica los datos de un cliente especifico",
+        "operationId": "updateCustomer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "description": "Id del cliente a modificar",
+            "required": true,
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 2
+          },
+          {
+            "name": "CustomerUpdateRequest",
+            "in": "body",
+            "description": "Datos del cliente a modificar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error / Customer not found"
+          }
+        }
+      }
+    },
+    "/customer": {
+      "get": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Obtiene todos los clientes disponibles",
+        "operationId": "getAllCustomers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerResponse"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Crea un nuevo cliente",
+        "operationId": "createCustomer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "CustomerCreateRequest",
+            "in": "body",
+            "description": "Datos del cliente a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/customer/primes": {
+      "get": {
+        "tags": [
+          "Customer Services"
+        ],
+        "summary": "Obtiene la cantidad de nombres cuyo numero de caracteres es un numero primo junto con dichos nombres",
+        "operationId": "getPrimeNames",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PrimeNamesResponse"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CustomerResponse": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "string",
+          "example": "ddf5193f-d5a3-11e9-8fde-42010a8e001c",
+          "description": "Identificador del cliente"
+        },
+        "name": {
+          "type": "string",
+          "example": "Felipe",
+          "description": "Nombre del cliente"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Arias",
+          "description": "Apellido del cliente"
+        },
+        "address": {
+          "type": "string",
+          "example": "Calle 13",
+          "description": "Direccion del cliente"
+        },
+        "email": {
+          "type": "string",
+          "example": "direccion@gmail.com",
+          "description": "Direccion correo del cliente"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "123456789",
+          "description": "Numero de télefono del cliente"
+        }
+      }
+    },
+    "PrimeNamesResponse": {
+      "type": "object",
+      "properties": {
+        "primeNamesNumber": {
+          "type": "number",
+          "example": 2,
+          "description": "Cantidad de nombres cuya cantidad de caracteres es un número primo"
+        },
+        "primeNames": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "Marcelo"
+          },
+          "description": "Numero de télefono del cliente"
+        }
+      }
+    },
+    "CustomerRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Felipe",
+          "description": "Nombre del cliente"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Arias",
+          "description": "Apellido del cliente"
+        },
+        "address": {
+          "type": "string",
+          "example": "Calle 13",
+          "description": "Direccion del cliente"
+        },
+        "email": {
+          "type": "string",
+          "example": "direccion@gmail.com",
+          "description": "Direccion correo del cliente"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "123456789",
+          "description": "Numero de télefono del cliente"
+        }
+      }
+    }
+  }
+}
