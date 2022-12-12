@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.service;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.CustomerResponseParser;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
@@ -101,7 +100,7 @@ public class CustomerServiceImplTest {
 
     @Test
     public void testCreateCustomer_ShouldSucceedWhenValidData() {
-        CustomerCreateRequest request = CustomerCreateRequest.builder()
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")
@@ -134,8 +133,8 @@ public class CustomerServiceImplTest {
 
     @Test
     public void testUpdateCustomer_ShouldSucceed_WhenValidData() {
-        CustomerUpdateRequest request = CustomerUpdateRequest.builder()
-                .customerId("customerId")
+        String customerId = "customerId";
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")
@@ -143,7 +142,7 @@ public class CustomerServiceImplTest {
                 .phoneNumber("phone")
                 .build();
         Customer customer = Customer.builder()
-                .customerId("customerId")
+                .customerId(customerId)
                 .name("name")
                 .lastName("lastName")
                 .address("address")
@@ -151,19 +150,19 @@ public class CustomerServiceImplTest {
                 .phoneNumber("phoneNumber")
                 .build();
         CustomerResponse customerResponse = CustomerResponse.builder()
-                .customerId("customerId")
+                .customerId(customerId)
                 .name("name")
                 .lastName("lastName")
                 .address("address")
                 .email("email")
                 .phoneNumber("phoneNumber")
                 .build();
-        when(customerRepository.findCustomerByCustomerId(request.getCustomerId())).thenReturn(customer);
-        when(customerResponseParser.convertUpdateRequestToEntity(request)).thenReturn(customer);
+        when(customerRepository.findCustomerByCustomerId(customerId)).thenReturn(customer);
+        when(customerResponseParser.convertUpdateRequestToEntity(request, customerId)).thenReturn(customer);
         when(customerRepository.save(customer)).thenReturn(customer);
         when(customerResponseParser.convertEntityToResponse(customer)).thenReturn(customerResponse);
 
-        CustomerResponse result = customerService.updateCustomer(request);
+        CustomerResponse result = customerService.updateCustomer(request, customerId);
 
         assertEquals(result, customerResponse);
     }

@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.controller.response;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.repository.entity.Customer;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +21,10 @@ public class CustomerResponseParser {
                 .build();
     }
 
-    public Customer convertUpdateRequestToEntity(CustomerUpdateRequest request) {
+
+    public Customer convertUpdateRequestToEntity(CustomerRequest request, String customerId) {
         return Customer.builder()
-                .customerId(request.getCustomerId())
+                .customerId(customerId)
                 .name(request.getName())
                 .lastName(request.getLastName())
                 .address(request.getAddress())
@@ -33,7 +33,7 @@ public class CustomerResponseParser {
                 .build();
     }
 
-    public Customer convertCreateRequestToEntity(CustomerCreateRequest request) {
+    public Customer convertCreateRequestToEntity(CustomerRequest request) {
         return Customer.builder()
                 .name(request.getName())
                 .lastName(request.getLastName())

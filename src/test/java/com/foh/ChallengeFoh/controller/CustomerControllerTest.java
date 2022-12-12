@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.controller;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
 import com.foh.ChallengeFoh.service.CustomerService;
@@ -74,7 +73,7 @@ public class CustomerControllerTest {
                 .email("email")
                 .phoneNumber("phoneNumber")
                 .build();
-        CustomerCreateRequest request = CustomerCreateRequest.builder()
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")
@@ -90,25 +89,25 @@ public class CustomerControllerTest {
 
     @Test
     public void testUpdateCustomer_ShouldSucceed_WhenValidData() {
+        String customerId = "customerId";
         CustomerResponse response = CustomerResponse.builder()
-                .customerId("customerId")
+                .customerId(customerId)
                 .name("name")
                 .lastName("lastName")
                 .address("address")
                 .email("email")
                 .phoneNumber("phoneNumber")
                 .build();
-        CustomerUpdateRequest request = CustomerUpdateRequest.builder()
-                .customerId("customerId")
+        CustomerRequest request = CustomerRequest.builder()
                 .name("name")
                 .lastName("lastName")
                 .address("address")
                 .email("email")
                 .phoneNumber("phone")
                 .build();
-        when(customerService.updateCustomer(request)).thenReturn(response);
+        when(customerService.updateCustomer(request, customerId)).thenReturn(response);
 
-        CustomerResponse result = customerController.updateCustomer(request);
+        CustomerResponse result = customerController.updateCustomer(request, customerId);
 
         assertEquals(result, response);
     }

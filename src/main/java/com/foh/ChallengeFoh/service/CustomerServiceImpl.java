@@ -1,7 +1,6 @@
 package com.foh.ChallengeFoh.service;
 
-import com.foh.ChallengeFoh.controller.request.CustomerCreateRequest;
-import com.foh.ChallengeFoh.controller.request.CustomerUpdateRequest;
+import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.CustomerResponseParser;
 import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
@@ -47,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse createCustomer(CustomerCreateRequest request) {
+    public CustomerResponse createCustomer(CustomerRequest request) {
         log.info("Creating new customer");
         Customer customer = customerResponseParser.convertCreateRequestToEntity(request);
         CustomerResponse response = customerResponseParser.convertEntityToResponse(customerRepository.save(customer));
@@ -56,10 +55,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse updateCustomer(CustomerUpdateRequest request) throws CustomerNotFoundException{
+    public CustomerResponse updateCustomer(CustomerRequest request, String customerId) throws CustomerNotFoundException{
         log.info("Updating customer");
-        getCustomer(request.getCustomerId());
-        Customer customer = customerResponseParser.convertUpdateRequestToEntity(request);
+        getCustomer(customerId);
+        Customer customer = customerResponseParser.convertUpdateRequestToEntity(request, customerId);
         CustomerResponse response = customerResponseParser.convertEntityToResponse(customerRepository.save(customer));
         log.info("Customer updated");
         return response;
