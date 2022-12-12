@@ -125,18 +125,11 @@ public class CustomerControllerTest {
 
     @Test
     public void testGetPrimeNames_ShouldSucceed_WhenValidData() {
-        List<String> names = new ArrayList<>();
-        names.add("name1");
-        names.add("name2");
-        names.add("name3");
-        PrimeNamesResponse response = PrimeNamesResponse.builder()
-                .primeNamesAmount(names.size())
-                .primeNames(names)
-                .build();
+        Integer response = 2;
 
         when(customerService.getPrimeNames()).thenReturn(response);
 
-        PrimeNamesResponse result = customerController.getPrimeNames();
+        Integer result = customerController.getPrimeNames();
 
         assertEquals(result, response);
     }

@@ -50,7 +50,7 @@ public class CustomerController {
     }
 
     @GetMapping("/primes")
-    public PrimeNamesResponse getPrimeNames(){
+    public Integer getPrimeNames(){
         return customerService.getPrimeNames();
     }
 }
