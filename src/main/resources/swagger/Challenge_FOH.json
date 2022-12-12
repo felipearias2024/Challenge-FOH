@@ -52,8 +52,8 @@
               "$ref": "#/definitions/CustomerResponse"
             }
           },
-          "500": {
-            "description": "Internal Server Error / Customer not found"
+          "400": {
+            "description": "Bad Request / Customer not found"
           }
         }
       },
@@ -84,8 +84,8 @@
           "200": {
             "description": "OK"
           },
-          "500": {
-            "description": "Internal Server Error / Customer not found"
+          "400": {
+            "description": "Bad Request / Customer not found"
           }
         }
       },
@@ -129,10 +129,7 @@
             }
           },
           "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error / Customer not found"
+            "description": "Bad Request / Customer not found"
           }
         }
       }
@@ -215,10 +212,8 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PrimeNamesResponse"
-              }
+              "type": "number",
+              "example": 2
             }
           }
         }
@@ -257,24 +252,6 @@
         "phoneNumber": {
           "type": "string",
           "example": "123456789",
-          "description": "Numero de télefono del cliente"
-        }
-      }
-    },
-    "PrimeNamesResponse": {
-      "type": "object",
-      "properties": {
-        "primeNamesNumber": {
-          "type": "number",
-          "example": 2,
-          "description": "Cantidad de nombres cuya cantidad de caracteres es un número primo"
-        },
-        "primeNames": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "Marcelo"
-          },
           "description": "Numero de télefono del cliente"
         }
       }

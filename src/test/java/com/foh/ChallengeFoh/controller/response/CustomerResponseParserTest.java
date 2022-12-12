@@ -53,6 +53,7 @@ public class CustomerResponseParserTest {
                 .phoneNumber("phoneNumber")
                 .build();
         Customer customer = Customer.builder()
+                .customerId(customerId)
                 .name("name")
                 .lastName("lastName")
                 .address("address")

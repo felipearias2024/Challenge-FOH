@@ -21,10 +21,10 @@ public class Customer {
     @Column(name = "customer_id")
     private String customerId;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", length = 100)
     private String name;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", length = 100)
     private String lastName;
 
     @Column(name = "address")

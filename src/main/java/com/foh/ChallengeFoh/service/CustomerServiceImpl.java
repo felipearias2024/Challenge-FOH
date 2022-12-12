@@ -3,14 +3,12 @@ package com.foh.ChallengeFoh.service;
 import com.foh.ChallengeFoh.controller.request.CustomerRequest;
 import com.foh.ChallengeFoh.controller.response.CustomerResponse;
 import com.foh.ChallengeFoh.controller.response.CustomerResponseParser;
-import com.foh.ChallengeFoh.controller.response.PrimeNamesResponse;
 import com.foh.ChallengeFoh.repository.CustomerRepository;
 import com.foh.ChallengeFoh.repository.entity.Customer;
 import com.foh.ChallengeFoh.util.exception.CustomerNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customer = customerRepository.findCustomerByCustomerId(customerId);
             log.info("Customer found for id {}", customerId);
             return customerResponseParser.convertEntityToResponse(customer);
-        }catch (NullPointerException ex){
+        }catch (Exception ex){
             log.error("Customer not found for id {}", customerId);
             throw new CustomerNotFoundException("Customer not found");
         }
@@ -73,24 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public PrimeNamesResponse getPrimeNames() {
-        List<CustomerResponse> customerList = getAllCustomers();
-        List<String> primeNamesList = new ArrayList<>();
-        customerList.stream().forEach(customer -> {
-            int nameLength = customer.getName().length();
-            boolean flag = true;
-            if (nameLength == 0 || nameLength == 1) {
-                flag = false;
-            }
-            for (int i = 2; i <= nameLength / 2; ++i) {
-                if (nameLength % i == 0) {
-                    flag = false;
-                }
-            }
-            if (flag) {
-                primeNamesList.add(customer.getName());
-            }
-        });
-        return PrimeNamesResponse.builder().primeNamesAmount(primeNamesList.size()).primeNames(primeNamesList).build();
+    public Integer getPrimeNames() {
+        return customerRepository.getPrimeNames();
     }
 }

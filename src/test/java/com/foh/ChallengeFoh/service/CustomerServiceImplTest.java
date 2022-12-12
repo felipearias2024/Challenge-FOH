@@ -186,73 +186,13 @@ public class CustomerServiceImplTest {
         verify(customerRepository, times(1)).deleteById(customerId);
     }
 
-    @Test
-    public void testGetPrimeNames_ShouldReturnAtLeastOnePrime_WhenValidData() {
-        List<Customer> customerList = new ArrayList<>();
-        Customer customer = Customer.builder()
-                .customerId("customerId")
-                .name("names")
-                .lastName("lastName")
-                .address("address")
-                .email("email")
-                .phoneNumber("phoneNumber")
-                .build();
-        customerList.add(customer);
-        List<CustomerResponse> customerResponseList = new ArrayList<>();
-        CustomerResponse customerResponse = CustomerResponse.builder()
-                .customerId("customerId")
-                .name("names")
-                .lastName("lastName")
-                .address("address")
-                .email("email")
-                .phoneNumber("phoneNumber")
-                .build();
-        customerResponseList.add(customerResponse);
-        List<String> primeNames = new ArrayList<>();
-        primeNames.add("names");
-        PrimeNamesResponse response = PrimeNamesResponse.builder()
-                .primeNamesAmount(primeNames.size())
-                .primeNames(primeNames)
-                .build();
-        when(customerRepository.findAll()).thenReturn(customerList);
-        when(customerResponseParser.convertEntityToResponseList(customerList)).thenReturn(customerResponseList);
-
-        PrimeNamesResponse result = customerService.getPrimeNames();
-
-        assertEquals(result, response);
-    }
 
     @Test
     public void testGetPrimeNames_ShouldReturnNoPrime_WhenValidData() {
-        List<Customer> customerList = new ArrayList<>();
-        Customer customer = Customer.builder()
-                .customerId("customerId")
-                .name("n")
-                .lastName("lastName")
-                .address("address")
-                .email("email")
-                .phoneNumber("phoneNumber")
-                .build();
-        customerList.add(customer);
-        List<CustomerResponse> customerResponseList = new ArrayList<>();
-        CustomerResponse customerResponse = CustomerResponse.builder()
-                .customerId("customerId")
-                .name("n")
-                .lastName("lastName")
-                .address("address")
-                .email("email")
-                .phoneNumber("phoneNumber")
-                .build();
-        customerResponseList.add(customerResponse);
-        List<String> primeNames = new ArrayList<>();
-        PrimeNamesResponse response = PrimeNamesResponse.builder()
-                .primeNamesAmount(primeNames.size())
-                .primeNames(primeNames)
-                .build();
-        when(customerRepository.findAll()).thenReturn(customerList);
-        when(customerResponseParser.convertEntityToResponseList(customerList)).thenReturn(customerResponseList);
+        Integer response = 2;
+        when(customerRepository.getPrimeNames()).thenReturn(2);
 
-        PrimeNamesResponse result = customerService.getPrimeNames();
+        Integer result = customerService.getPrimeNames();
 
         assertEquals(result, response);
 
